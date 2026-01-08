@@ -180,12 +180,26 @@ Please research prospects matching this ICP, find their contact information, and
 
       if (result.success) {
         // Check if we have enriched prospects in the response
-        const response = result.response
+        let response = result.response
+
+        // If response is a string, try to parse it
+        if (typeof response === 'string') {
+          try {
+            response = JSON.parse(response)
+          } catch (e) {
+            // Keep original response if parsing fails
+          }
+        }
 
         // Try to extract prospects from various possible locations
         let enrichedProspects: EnrichedProspect[] = []
+        let errorMessage = ''
+        let nextAction = ''
 
-        if (response.result?.enriched_prospects) {
+        // Check for prospects_with_emails (from manager agent response)
+        if (response.result?.prospects_with_emails) {
+          enrichedProspects = response.result.prospects_with_emails
+        } else if (response.result?.enriched_prospects) {
           enrichedProspects = response.result.enriched_prospects
         } else if (response.result?.final_output?.enriched_prospects) {
           enrichedProspects = response.result.final_output.enriched_prospects
@@ -197,6 +211,11 @@ Please research prospects matching this ICP, find their contact information, and
           if (emailWriterResult?.output?.enriched_prospects) {
             enrichedProspects = emailWriterResult.output.enriched_prospects
           }
+        }
+
+        // Extract error details if available
+        if (response.status === 'error' && response.result?.next_action) {
+          nextAction = response.result.next_action
         }
 
         if (enrichedProspects.length > 0) {
@@ -211,8 +230,16 @@ Please research prospects matching this ICP, find their contact information, and
           setGenerationSuccess(`Campaign generated successfully! Found ${enrichedProspects.length} prospects.`)
           setActiveTab('dashboard')
         } else {
-          // No prospects found
-          setGenerationError('No prospects found. The agent may still be processing or no matches were found for your criteria.')
+          // No prospects found - show detailed error
+          if (nextAction) {
+            setGenerationError(nextAction)
+          } else if (response.result?.workflow_steps_completed) {
+            const steps = response.result.workflow_steps_completed
+            const lastStep = steps[steps.length - 1]
+            setGenerationError(`Campaign workflow issue: ${lastStep}`)
+          } else {
+            setGenerationError('No prospects found. The agent may still be processing or no matches were found for your criteria.')
+          }
         }
       } else {
         setGenerationError(result.error || 'Failed to generate campaign')
