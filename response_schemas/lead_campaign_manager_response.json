@@ -1,0 +1,59 @@
+{
+  "agent_name": "Lead Campaign Manager",
+  "agent_id": "695fa3395dbd567753c07335",
+  "agent_purpose": "manager",
+  "description": "Returns aggregated campaign data with researched prospects and personalized emails ready for review",
+  "response_schema": {
+    "status": "string (success|error)",
+    "result": {
+      "final_output": "object (aggregated result from sub-agents)",
+      "sub_agent_results": [
+        {
+          "agent_name": "string",
+          "status": "string",
+          "output": "object"
+        }
+      ],
+      "summary": "string",
+      "workflow_completed": "boolean"
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string (ISO)",
+      "sub_agents_used": [
+        "string"
+      ]
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "final_output": {
+        "aggregated": "data from all sub-agents"
+      },
+      "sub_agent_results": [
+        {
+          "agent_name": "Sub-Agent 1",
+          "status": "success",
+          "output": {
+            "data": "result"
+          }
+        }
+      ],
+      "summary": "All sub-agents completed successfully",
+      "workflow_completed": true
+    },
+    "metadata": {
+      "agent_name": "Lead Campaign Manager",
+      "timestamp": "2025-01-15T10:30:00Z",
+      "sub_agents_used": [
+        "Sub-Agent 1"
+      ]
+    }
+  },
+  "is_actual_tested": false,
+  "test_timestamp": null,
+  "test_message_used": "Process this request and coordinate sub-agents",
+  "raw_test_response": "Thank you for your request! To proceed with campaign orchestration, I need the following details:\n1. Company context (target industry, product/service, value proposition)\n2. Ideal Customer Profile (ICP) criteria (target job titles, company sizes, geographies, etc.)\n\nPlease provide this information so I can initiate prospect research and coordinate the workflow.",
+  "test_error": "Response not valid JSON: Expecting value: line 1 column 1 (char 0)"
+}

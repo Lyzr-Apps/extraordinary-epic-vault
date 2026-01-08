@@ -1,0 +1,75 @@
+{
+  "agent_name": "Email Delivery Agent",
+  "agent_id": "695fa34f5dbd567753c0733a",
+  "agent_purpose": "custom",
+  "description": "Returns detailed delivery report showing which emails were sent successfully via Gmail and any failures",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "emails_sent": [
+        {
+          "recipient_email": "string",
+          "recipient_name": "string",
+          "subject": "string",
+          "sent_at": "string",
+          "gmail_message_id": "string",
+          "delivery_status": "string"
+        }
+      ],
+      "total_sent": "number",
+      "total_failed": "number",
+      "summary": "string"
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "emails_sent": [
+        {
+          "recipient_email": "jane.doe@example.com",
+          "recipient_name": "Jane Doe",
+          "subject": "Welcome to Our Service",
+          "sent_at": "2024-06-22T15:30:10Z",
+          "gmail_message_id": "16a48ef8b23ab24f",
+          "delivery_status": "sent"
+        }
+      ],
+      "total_sent": 1,
+      "total_failed": 0,
+      "summary": "1 email sent successfully. No failures."
+    },
+    "metadata": {
+      "agent_name": "Email Delivery Agent",
+      "timestamp": "2024-06-22T15:30:10Z"
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-01-08T12:30:16.127428",
+  "test_message_used": "Provide a sample response",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "emails_sent": [
+        {
+          "recipient_email": "jane.doe@example.com",
+          "recipient_name": "Jane Doe",
+          "subject": "Welcome to Our Service",
+          "sent_at": "2024-06-22T15:30:10Z",
+          "gmail_message_id": "16a48ef8b23ab24f",
+          "delivery_status": "sent"
+        }
+      ],
+      "total_sent": 1,
+      "total_failed": 0,
+      "summary": "1 email sent successfully. No failures."
+    },
+    "metadata": {
+      "agent_name": "Email Delivery Agent",
+      "timestamp": "2024-06-22T15:30:10Z"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "agent_name": "Prospect Research Agent",
+  "agent_id": "695fa3005e0239738a835ec4",
+  "agent_purpose": "research",
+  "description": "Returns research data about ideal prospects including company info, decision-makers, and relevance scores",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "prospects": [
+        "any"
+      ],
+      "total_prospects": "number",
+      "icp_match_summary": "string"
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string"
+    }
+  },
+  "example_response": {
+    "status": "error",
+    "result": {
+      "prospects": [],
+      "total_prospects": 0,
+      "icp_match_summary": "No specific topic or industry context provided for research."
+    },
+    "metadata": {
+      "agent_name": "Prospect Research Agent",
+      "timestamp": "2023-10-04T12:00:00Z"
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-01-08T12:28:56.062736",
+  "test_message_used": "Research a sample topic for testing",
+  "actual_test_response": {
+    "status": "error",
+    "result": {
+      "prospects": [],
+      "total_prospects": 0,
+      "icp_match_summary": "No specific topic or industry context provided for research."
+    },
+    "metadata": {
+      "agent_name": "Prospect Research Agent",
+      "timestamp": "2023-10-04T12:00:00Z"
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "agent_name": "Email Finder & Writer Agent",
+  "agent_id": "695fa317c57d451439d48ebc",
+  "agent_purpose": "custom",
+  "description": "Returns enriched prospect data with discovered email addresses and personalized outreach emails generated for each prospect",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "enriched_prospects": [
+        {
+          "prospect_name": "string",
+          "company_name": "string",
+          "email_address": "string",
+          "phone": "string",
+          "linkedin_url": "string",
+          "job_title": "string",
+          "personalized_email": {
+            "subject_line": "string",
+            "email_body": "string",
+            "personalization_notes": "string"
+          },
+          "enrichment_confidence": "string"
+        }
+      ],
+      "total_enriched": "number",
+      "emails_generated": "number",
+      "apollo_credits_used": "number"
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "enriched_prospects": [
+        {
+          "prospect_name": "Jessica Kim",
+          "company_name": "Acme Corp",
+          "email_address": "jessica.kim@acmecorp.com",
+          "phone": "+1-555-123-4567",
+          "linkedin_url": "https://www.linkedin.com/in/jessicakim",
+          "job_title": "Director of Operations",
+          "personalized_email": {
+            "subject_line": "Boosting Efficiency at Acme Corp",
+            "email_body": "Hi Jessica,\n\nI came across your recent interview about scaling Acme Corp's logistics infrastructure and was really impressed by your focus on workflow optimization. \n\nWe\u2019ve helped operations leaders like yourself streamline multi-site distribution with custom analytics, leading to faster turnaround and fewer bottlenecks.\n\nWould you be open to a quick 15-minute call to see if there\u2019s a fit?\n\nBest regards,\nAlex",
+            "personalization_notes": "Mentioned Jessica's interview and her role in logistics optimization; tailored the value proposition to her focus on operations and efficiency."
+          },
+          "enrichment_confidence": "high"
+        }
+      ],
+      "total_enriched": 1,
+      "emails_generated": 1,
+      "apollo_credits_used": 1
+    },
+    "metadata": {
+      "agent_name": "Email Finder & Writer Agent",
+      "timestamp": "2024-06-10T14:30:00Z"
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-01-08T12:29:26.066467",
+  "test_message_used": "Provide a sample response",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "enriched_prospects": [
+        {
+          "prospect_name": "Jessica Kim",
+          "company_name": "Acme Corp",
+          "email_address": "jessica.kim@acmecorp.com",
+          "phone": "+1-555-123-4567",
+          "linkedin_url": "https://www.linkedin.com/in/jessicakim",
+          "job_title": "Director of Operations",
+          "personalized_email": {
+            "subject_line": "Boosting Efficiency at Acme Corp",
+            "email_body": "Hi Jessica,\n\nI came across your recent interview about scaling Acme Corp's logistics infrastructure and was really impressed by your focus on workflow optimization. \n\nWe\u2019ve helped operations leaders like yourself streamline multi-site distribution with custom analytics, leading to faster turnaround and fewer bottlenecks.\n\nWould you be open to a quick 15-minute call to see if there\u2019s a fit?\n\nBest regards,\nAlex",
+            "personalization_notes": "Mentioned Jessica's interview and her role in logistics optimization; tailored the value proposition to her focus on operations and efficiency."
+          },
+          "enrichment_confidence": "high"
+        }
+      ],
+      "total_enriched": 1,
+      "emails_generated": 1,
+      "apollo_credits_used": 1
+    },
+    "metadata": {
+      "agent_name": "Email Finder & Writer Agent",
+      "timestamp": "2024-06-10T14:30:00Z"
+    }
+  }
+}
