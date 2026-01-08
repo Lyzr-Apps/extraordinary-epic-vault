@@ -586,7 +586,7 @@ For each reply, provide:
 
                     <div className="space-y-2">
                       <Label htmlFor="valueProposition" className="flex items-center gap-2">
-                        <TrendingUp className="h-4 w-4" />
+                        <FiTrendingUp className="h-4 w-4" />
                         Value Proposition *
                       </Label>
                       <Input
@@ -657,12 +657,12 @@ For each reply, provide:
                   >
                     {isGenerating ? (
                       <>
-                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        <FiLoader className="mr-2 h-5 w-5 animate-spin" />
                         Generating Campaign...
                       </>
                     ) : (
                       <>
-                        <Target className="mr-2 h-5 w-5" />
+                        <FiTarget className="mr-2 h-5 w-5" />
                         Generate Campaign
                       </>
                     )}
@@ -682,7 +682,7 @@ For each reply, provide:
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center gap-2">
-                    <Users className="h-5 w-5 text-[#1e3a5f]" />
+                    <FiUsers className="h-5 w-5 text-[#1e3a5f]" />
                     <span className="text-2xl font-bold">{totalProspects}</span>
                   </div>
                 </CardContent>
@@ -694,7 +694,7 @@ For each reply, provide:
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="h-5 w-5 text-blue-600" />
+                    <FiCheckCircle className="h-5 w-5 text-blue-600" />
                     <span className="text-2xl font-bold text-blue-600">{approvedCount}</span>
                   </div>
                 </CardContent>
@@ -706,7 +706,7 @@ For each reply, provide:
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center gap-2">
-                    <Send className="h-5 w-5 text-green-600" />
+                    <FiSend className="h-5 w-5 text-green-600" />
                     <span className="text-2xl font-bold text-green-600">{sentCount}</span>
                   </div>
                 </CardContent>
@@ -718,7 +718,7 @@ For each reply, provide:
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center gap-2">
-                    <Edit className="h-5 w-5 text-orange-600" />
+                    <FiEdit className="h-5 w-5 text-orange-600" />
                     <span className="text-2xl font-bold text-orange-600">{draftCount}</span>
                   </div>
                 </CardContent>
@@ -730,7 +730,7 @@ For each reply, provide:
               <CardContent className="pt-6">
                 {sendError && (
                   <Alert variant="destructive" className="mb-4">
-                    <XCircle className="h-4 w-4" />
+                    <FiXCircle className="h-4 w-4" />
                     <AlertTitle>Error</AlertTitle>
                     <AlertDescription>{sendError}</AlertDescription>
                   </Alert>
@@ -738,7 +738,7 @@ For each reply, provide:
 
                 {sendSuccess && (
                   <Alert className="mb-4 border-green-200 bg-green-50">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <FiCheckCircle className="h-4 w-4 text-green-600" />
                     <AlertTitle className="text-green-800">Success</AlertTitle>
                     <AlertDescription className="text-green-700">{sendSuccess}</AlertDescription>
                   </Alert>
@@ -747,7 +747,7 @@ For each reply, provide:
                 <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                   <div className="flex flex-col sm:flex-row gap-3 flex-1 w-full sm:w-auto">
                     <div className="relative flex-1">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
+                      <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
                       <Input
                         placeholder="Search prospects..."
                         className="pl-10"
@@ -758,7 +758,7 @@ For each reply, provide:
 
                     <Select value={filterStatus} onValueChange={setFilterStatus}>
                       <SelectTrigger className="w-full sm:w-[180px]">
-                        <Filter className="h-4 w-4 mr-2" />
+                        <FiFilter className="h-4 w-4 mr-2" />
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -778,12 +778,12 @@ For each reply, provide:
                     >
                       {filteredProspects.every(p => p.approved) ? (
                         <>
-                          <X className="h-4 w-4 mr-2" />
+                          <FiX className="h-4 w-4 mr-2" />
                           Deselect All
                         </>
                       ) : (
                         <>
-                          <Check className="h-4 w-4 mr-2" />
+                          <FiCheck className="h-4 w-4 mr-2" />
                           Select All
                         </>
                       )}
@@ -796,12 +796,12 @@ For each reply, provide:
                     >
                       {isSending ? (
                         <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          <FiLoader className="mr-2 h-4 w-4 animate-spin" />
                           Sending...
                         </>
                       ) : (
                         <>
-                          <Send className="mr-2 h-4 w-4" />
+                          <FiSend className="mr-2 h-4 w-4" />
                           Send Approved ({approvedCount})
                         </>
                       )}
@@ -828,7 +828,7 @@ For each reply, provide:
               {filteredProspects.length === 0 && (
                 <Card>
                   <CardContent className="py-12 text-center">
-                    <Users className="h-12 w-12 text-slate-300 mx-auto mb-4" />
+                    <FiUsers className="h-12 w-12 text-slate-300 mx-auto mb-4" />
                     <p className="text-slate-500 text-lg">No prospects found</p>
                     <p className="text-slate-400 text-sm mt-2">Try adjusting your search or filters</p>
                   </CardContent>
@@ -844,7 +844,7 @@ For each reply, provide:
                 <div className="flex items-center justify-between">
                   <div>
                     <CardTitle className="text-2xl flex items-center gap-2">
-                      <Mail className="h-6 w-6 text-[#14b8a6]" />
+                      <FiMail className="h-6 w-6 text-[#14b8a6]" />
                       Email Reply Analysis
                     </CardTitle>
                     <CardDescription className="mt-2">
@@ -858,12 +858,12 @@ For each reply, provide:
                   >
                     {isAnalyzing ? (
                       <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        <FiLoader className="mr-2 h-4 w-4 animate-spin" />
                         Analyzing...
                       </>
                     ) : (
                       <>
-                        <TrendingUp className="mr-2 h-4 w-4" />
+                        <FiTrendingUp className="mr-2 h-4 w-4" />
                         Analyze Replies
                       </>
                     )}
@@ -873,7 +873,7 @@ For each reply, provide:
               <CardContent>
                 {analysisError && (
                   <Alert variant="destructive" className="mb-6">
-                    <XCircle className="h-4 w-4" />
+                    <FiXCircle className="h-4 w-4" />
                     <AlertTitle>Error</AlertTitle>
                     <AlertDescription>{analysisError}</AlertDescription>
                   </Alert>
