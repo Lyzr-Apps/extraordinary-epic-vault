@@ -193,6 +193,7 @@ Please research prospects matching this ICP, find their contact information, and
 
         // Try to extract prospects from various possible locations
         let enrichedProspects: EnrichedProspect[] = []
+        let unenrichedProspects: any[] = []
         let errorMessage = ''
         let nextAction = ''
 
@@ -210,6 +211,14 @@ Please research prospects matching this ICP, find their contact information, and
           )
           if (emailWriterResult?.output?.enriched_prospects) {
             enrichedProspects = emailWriterResult.output.enriched_prospects
+          }
+
+          // Also check for unenriched prospects from Prospect Research Agent
+          const researchResult = response.result.sub_agent_results.find(
+            (sa: any) => sa.agent_name === 'Prospect Research Agent'
+          )
+          if (researchResult?.output?.prospects) {
+            unenrichedProspects = researchResult.output.prospects
           }
         }
 
@@ -229,8 +238,30 @@ Please research prospects matching this ICP, find their contact information, and
           setProspects(prospectsWithUI)
           setGenerationSuccess(`Campaign generated successfully! Found ${enrichedProspects.length} prospects.`)
           setActiveTab('dashboard')
+        } else if (unenrichedProspects.length > 0) {
+          // Show unenriched prospects (without emails) from research agent
+          const prospectsWithUI = unenrichedProspects.map((p, i) => ({
+            prospect_name: p.name || p.prospect_name || 'Unknown',
+            company_name: p.company || p.company_name || 'Unknown',
+            email_address: p.email || 'Email not found',
+            phone: p.phone || '',
+            linkedin_url: p.linkedin || p.linkedin_url || '',
+            job_title: p.title || p.job_title || 'Unknown',
+            personalized_email: {
+              subject_line: 'Email generation pending',
+              email_body: 'Email content will be generated once contact information is enriched.',
+              personalization_notes: 'Awaiting email enrichment'
+            },
+            enrichment_confidence: 'low',
+            id: `${Date.now()}-${i}`,
+            approved: false,
+            status: 'draft' as const
+          }))
+          setProspects(prospectsWithUI)
+          setGenerationError(`Found ${unenrichedProspects.length} prospects but email enrichment failed. ${nextAction || 'Please configure Apollo integration or provide email addresses manually.'}`)
+          setActiveTab('dashboard')
         } else {
-          // No prospects found - show detailed error
+          // No prospects found at all - show detailed error
           if (nextAction) {
             setGenerationError(nextAction)
           } else if (response.result?.workflow_steps_completed) {
