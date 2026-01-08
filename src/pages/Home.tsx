@@ -890,7 +890,7 @@ For each reply, provide:
                               <p className="text-sm font-medium text-green-800">Interested</p>
                               <p className="text-3xl font-bold text-green-900">{interestedCount}</p>
                             </div>
-                            <TrendingUp className="h-8 w-8 text-green-600" />
+                            <FiTrendingUp className="h-8 w-8 text-green-600" />
                           </div>
                         </CardContent>
                       </Card>
@@ -902,7 +902,7 @@ For each reply, provide:
                               <p className="text-sm font-medium text-yellow-800">Neutral</p>
                               <p className="text-3xl font-bold text-yellow-900">{neutralCount}</p>
                             </div>
-                            <Minus className="h-8 w-8 text-yellow-600" />
+                            <FiMinus className="h-8 w-8 text-yellow-600" />
                           </div>
                         </CardContent>
                       </Card>
@@ -914,7 +914,7 @@ For each reply, provide:
                               <p className="text-sm font-medium text-red-800">Not Interested</p>
                               <p className="text-3xl font-bold text-red-900">{notInterestedCount}</p>
                             </div>
-                            <TrendingDown className="h-8 w-8 text-red-600" />
+                            <FiTrendingDown className="h-8 w-8 text-red-600" />
                           </div>
                         </CardContent>
                       </Card>
@@ -923,7 +923,7 @@ For each reply, provide:
                     {/* Analysis Summary */}
                     {sentimentResponse.analysis && (
                       <Alert className="mb-6 border-blue-200 bg-blue-50">
-                        <AlertCircle className="h-4 w-4 text-blue-600" />
+                        <FiAlertCircle className="h-4 w-4 text-blue-600" />
                         <AlertTitle className="text-blue-800">Analysis Summary</AlertTitle>
                         <AlertDescription className="text-blue-700">
                           {sentimentResponse.analysis}
@@ -944,7 +944,7 @@ For each reply, provide:
                       <Card className="mt-6 border-[#14b8a6] bg-slate-50">
                         <CardHeader>
                           <CardTitle className="text-lg flex items-center gap-2">
-                            <Target className="h-5 w-5 text-[#14b8a6]" />
+                            <FiTarget className="h-5 w-5 text-[#14b8a6]" />
                             Recommended Actions
                           </CardTitle>
                         </CardHeader>
@@ -952,7 +952,7 @@ For each reply, provide:
                           <ul className="space-y-2">
                             {sentimentResponse.recommendations.map((rec, index) => (
                               <li key={index} className="flex items-start gap-2">
-                                <CheckCircle className="h-5 w-5 text-[#14b8a6] mt-0.5 flex-shrink-0" />
+                                <FiCheckCircle className="h-5 w-5 text-[#14b8a6] mt-0.5 flex-shrink-0" />
                                 <span className="text-slate-700">{rec}</span>
                               </li>
                             ))}
@@ -965,7 +965,7 @@ For each reply, provide:
 
                 {!sentimentResponse && !isAnalyzing && (
                   <div className="text-center py-12">
-                    <Mail className="h-16 w-16 text-slate-300 mx-auto mb-4" />
+                    <FiMail className="h-16 w-16 text-slate-300 mx-auto mb-4" />
                     <p className="text-slate-500 text-lg">No analysis yet</p>
                     <p className="text-slate-400 text-sm mt-2">Click "Analyze Replies" to start</p>
                   </div>
@@ -1042,15 +1042,15 @@ function ProspectCard({
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-600">
                 <div className="flex items-center gap-2">
-                  <Building2 className="h-4 w-4 text-slate-400" />
+                  <BsBuilding className="h-4 w-4 text-slate-400" />
                   <span>{prospect.company_name}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Briefcase className="h-4 w-4 text-slate-400" />
+                  <FiBriefcase className="h-4 w-4 text-slate-400" />
                   <span>{prospect.job_title}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-slate-400" />
+                  <FiMail className="h-4 w-4 text-slate-400" />
                   <span className="truncate">{prospect.email_address}</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1067,7 +1067,7 @@ function ProspectCard({
               <span className="text-sm font-medium">
                 {isExpanded ? 'Hide Email Preview' : 'Show Email Preview'}
               </span>
-              {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+              {isExpanded ? <FiChevronUp className="h-4 w-4" /> : <FiChevronDown className="h-4 w-4" />}
             </Button>
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-4">
@@ -1097,7 +1097,7 @@ function ProspectCard({
                       size="sm"
                       onClick={() => onCancelEditing(prospect.id!)}
                     >
-                      <X className="h-4 w-4 mr-1" />
+                      <FiX className="h-4 w-4 mr-1" />
                       Cancel
                     </Button>
                     <Button
@@ -1105,7 +1105,7 @@ function ProspectCard({
                       onClick={() => onSaveEditing(prospect.id!)}
                       className="bg-[#14b8a6] hover:bg-[#0f9b8e]"
                     >
-                      <Check className="h-4 w-4 mr-1" />
+                      <FiCheck className="h-4 w-4 mr-1" />
                       Save Changes
                     </Button>
                   </div>
@@ -1141,7 +1141,7 @@ function ProspectCard({
                         size="sm"
                         onClick={() => onStartEditing(prospect.id!)}
                       >
-                        <Edit className="h-4 w-4 mr-1" />
+                        <FiEdit className="h-4 w-4 mr-1" />
                         Edit Email
                       </Button>
                     </div>
@@ -1173,19 +1173,19 @@ function ReplyCard({ finding }: ReplyCardProps) {
         return {
           label: 'Interested',
           color: 'bg-green-100 text-green-800 border-green-200',
-          icon: <TrendingUp className="h-4 w-4" />
+          icon: <FiTrendingUp className="h-4 w-4" />
         }
       case 'medium': // Neutral
         return {
           label: 'Neutral',
           color: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-          icon: <Minus className="h-4 w-4" />
+          icon: <FiMinus className="h-4 w-4" />
         }
       default: // Not Interested
         return {
           label: 'Not Interested',
           color: 'bg-red-100 text-red-800 border-red-200',
-          icon: <TrendingDown className="h-4 w-4" />
+          icon: <FiTrendingDown className="h-4 w-4" />
         }
     }
   }
@@ -1210,7 +1210,7 @@ function ReplyCard({ finding }: ReplyCardProps) {
           <CollapsibleTrigger asChild>
             <Button variant="ghost" size="sm" className="w-full justify-between text-xs hover:bg-slate-50">
               <span>{isExpanded ? 'Hide Details' : 'Show Reasoning'}</span>
-              {isExpanded ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+              {isExpanded ? <FiChevronUp className="h-3 w-3" /> : <FiChevronDown className="h-3 w-3" />}
             </Button>
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-3">
