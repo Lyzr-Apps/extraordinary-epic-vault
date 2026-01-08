@@ -112,59 +112,7 @@ interface SentimentResult {
   recommendations: string[]
 }
 
-// =============================================================================
-// Sample Data
-// =============================================================================
-
-const sampleProspects: EnrichedProspect[] = [
-  {
-    id: '1',
-    prospect_name: 'Sarah Johnson',
-    company_name: 'TechCorp Inc',
-    email_address: 'sarah.johnson@techcorp.com',
-    phone: '+1-555-123-4567',
-    linkedin_url: 'https://www.linkedin.com/in/sarahjohnson',
-    job_title: 'VP of Sales',
-    personalized_email: {
-      subject_line: 'Helping TechCorp scale outbound sales',
-      email_body: `Hi Sarah,\n\nI noticed TechCorp recently expanded its sales team and is experiencing rapid growth. Congratulations on the Series B funding!\n\nWe've helped sales leaders like yourself automate SDR outreach while maintaining personalization, leading to 40% higher response rates.\n\nWould you be open to a 15-minute call to explore if there's a fit?\n\nBest regards,\nAlex`,
-      personalization_notes: 'Referenced Series B funding and sales team expansion'
-    },
-    enrichment_confidence: 'high',
-    approved: false,
-    status: 'draft'
-  },
-  {
-    id: '2',
-    prospect_name: 'Mike Chen',
-    company_name: 'DataSystems LLC',
-    email_address: 'm.chen@datasystems.com',
-    phone: '+1-555-987-6543',
-    linkedin_url: 'https://www.linkedin.com/in/mikechen',
-    job_title: 'Head of Business Development',
-    personalized_email: {
-      subject_line: 'Automating your SDR workflow at DataSystems',
-      email_body: `Hi Mike,\n\nGiven DataSystems' rapid 40% YoY growth in the enterprise analytics space, your business development team is likely stretched thin.\n\nWe specialize in helping high-growth companies like yours scale outbound outreach without sacrificing quality or personalization.\n\nInterested in seeing how we can help?\n\nBest,\nAlex`,
-      personalization_notes: 'Mentioned 40% YoY growth and enterprise analytics focus'
-    },
-    enrichment_confidence: 'high',
-    approved: false,
-    status: 'draft'
-  }
-]
-
-const sampleReplies: SentimentFinding[] = [
-  {
-    title: 'Sarah Johnson - TechCorp Inc',
-    description: 'Thanks for reaching out! This looks interesting. Can we schedule a call next week?',
-    severity: 'high' // Using high for "Interested"
-  },
-  {
-    title: 'Mike Chen - DataSystems LLC',
-    description: 'Not interested at this time, but thanks for thinking of us.',
-    severity: 'low' // Using low for "Not Interested"
-  }
-]
+// No sample data - only show real agent responses
 
 // =============================================================================
 // Main Component
@@ -187,7 +135,7 @@ export default function Home() {
   const [generationSuccess, setGenerationSuccess] = useState<string | null>(null)
 
   // Dashboard State
-  const [prospects, setProspects] = useState<EnrichedProspect[]>(sampleProspects)
+  const [prospects, setProspects] = useState<EnrichedProspect[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [filterStatus, setFilterStatus] = useState<string>('all')
   const [isSending, setIsSending] = useState(false)
@@ -263,10 +211,8 @@ Please research prospects matching this ICP, find their contact information, and
           setGenerationSuccess(`Campaign generated successfully! Found ${enrichedProspects.length} prospects.`)
           setActiveTab('dashboard')
         } else {
-          // No prospects found, use sample data
-          setProspects(sampleProspects)
-          setGenerationSuccess('Campaign initiated! Showing sample prospects for demonstration.')
-          setActiveTab('dashboard')
+          // No prospects found
+          setGenerationError('No prospects found. The agent may still be processing or no matches were found for your criteria.')
         }
       } else {
         setGenerationError(result.error || 'Failed to generate campaign')
@@ -432,15 +378,26 @@ ${JSON.stringify(emailList, null, 2)}
     setAnalysisError(null)
     setSentimentResponse(null)
 
+    // Get sent emails to analyze their replies
+    const sentEmails = prospects.filter(p => p.status === 'sent')
+
+    if (sentEmails.length === 0) {
+      setAnalysisError('No sent emails to analyze. Please send some emails first.')
+      setIsAnalyzing(false)
+      return
+    }
+
     const analysisPrompt = `
-Analyze the sentiment of these email replies and classify each as Interested, Neutral, or Not Interested:
+Analyze email replies from the Gmail inbox for these sent emails:
 
-${sampleReplies.map(r => `${r.title}: "${r.description}"`).join('\n\n')}
+${sentEmails.map(p => `- ${p.prospect_name} (${p.email_address}) - Subject: "${p.personalized_email.subject_line}"`).join('\n')}
 
-For each reply, provide:
+For each reply found, provide:
 1. Sentiment classification (Interested/Neutral/Not Interested)
 2. Reasoning for the classification
 3. Recommended next action
+
+Return the analysis in the expected format with findings array.
     `.trim()
 
     try {
@@ -449,21 +406,11 @@ For each reply, provide:
       if (result.success) {
         const sentimentData = result.response.result as SentimentResult
 
-        // Use the findings from the response, or fall back to sample
+        // Only use actual findings from the response
         if (sentimentData.findings && sentimentData.findings.length > 0) {
           setSentimentResponse(sentimentData)
         } else {
-          // Fallback to sample data with proper structure
-          setSentimentResponse({
-            analysis: result.response.result.analysis || 'Sentiment analysis completed',
-            findings: sampleReplies,
-            score: result.response.result.score,
-            recommendations: result.response.result.recommendations || [
-              'Follow up with interested prospects within 24 hours',
-              'Send additional value content to neutral prospects',
-              'Remove uninterested prospects from campaign'
-            ]
-          })
+          setAnalysisError('No replies found yet. Recipients may not have responded to the emails.')
         }
       } else {
         setAnalysisError(result.error || 'Failed to analyze replies')
